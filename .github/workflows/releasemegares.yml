@@ -20,6 +20,10 @@ jobs:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
 
+      - name: Create Data Folder
+        run : |
+          mkdir data
+          chmod 777 data
 
       - name: Install PIGZ
         run: |
