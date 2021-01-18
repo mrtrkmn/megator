@@ -13,7 +13,7 @@ func (ytdl *MegaCLI) exec(args ...string) ([]byte, error) {
 
 // `megadl` = specify --path for output
 func (ytdl *MegaCLI) DownloadWithDirName(dir, url string) error {
-	cmds := []string{"--path", dir, fmt.Sprintf("'%s'", url)}
+	cmds := []string{"--path=", dir, fmt.Sprintf("'%s'", url)}
 	_, err := ytdl.exec(cmds...)
 	return err
 }
