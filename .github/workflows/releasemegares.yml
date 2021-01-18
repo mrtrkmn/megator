@@ -26,14 +26,12 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install pigz -y
 
-      - name: Get youtube-dl
+      - name: Get megadl
         run: |
-          sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
-          sudo chmod a+rx /usr/local/bin/youtube-dl
+          sudo apt-get install megatools
 
       - name: Go Build
         run: go build -o main -v .
-
 
       - name: Create Release
         id: create_release
@@ -42,8 +40,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          body_path: ./resource/playlist-list.csv
-          release_name: New Youtube Playlist ${{ github.ref }}
+          body_path: ./resource/mega-url-list.csv
+          release_name: New Mega Resources ${{ github.ref }}
           draft: false
           prerelease: false
 
@@ -63,7 +61,7 @@ jobs:
         with:
           author_name: AutoBot
           author_email: hi@mrturkmen.com
-          message: "[automated msg]: playlist doc updated with new release"
+          message: "[automated msg]: resources doc updated with new release"
           branch: master
           add: "resource/*.csv"
         env:
