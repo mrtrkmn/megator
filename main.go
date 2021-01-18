@@ -11,19 +11,19 @@ import (
 )
 
 const (
-	LIST_OF_PLAYLIST_URLS     = "./resource/playlist-list.csv"
-	OLD_LIST_OF_PLAYLIST_URLS = "./resource/old-playlist-list.csv"
+	LIST_OF_MEGA_URLS     = "./resource/mega-link-list.csv"
+	OLD_LIST_OF_MEGA_URLS = "./resource/old-mega-link-list.csv"
 )
 
 func main() {
 	cli := client.New()
 
-	var oldFile, err = os.OpenFile(OLD_LIST_OF_PLAYLIST_URLS, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
+	var oldFile, err = os.OpenFile(OLD_LIST_OF_MEGA_URLS, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer oldFile.Close()
-	csvfile, err := os.Open(LIST_OF_PLAYLIST_URLS)
+	csvfile, err := os.Open(LIST_OF_MEGA_URLS)
 	if err != nil {
 		log.Fatalln("Couldn't open the csv file", err)
 	}
@@ -40,7 +40,11 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		if err := cli.YoutubeDL.DownloadWithOutputName(record[0], record[1]); err != nil {
+		if err := os.Mkdir(record[0], 777); err != nil {
+			panic(err)
+		}
+
+		if err := cli.MegaCLI.DownloadWithDirName(record[0], record[1]); err != nil {
 			panic(err)
 		}
 
@@ -50,11 +54,11 @@ func main() {
 		writer.Write([]string{record[0], record[1]})
 	}
 
-	if err := os.Remove("./resource/playlist-list.csv"); err != nil {
+	if err := os.Remove("./resource/mega-link-list.csv"); err != nil {
 		panic(err)
 	}
 
-	createFile("./resource/playlist-list.csv")
+	createFile("./resource/mega-link-list.csv")
 
 }
 

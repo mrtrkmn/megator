@@ -10,7 +10,7 @@ import (
 )
 
 type Client struct {
-	YoutubeDL *YoutubeDL
+	MegaCLI *MegaCLI
 
 	Tar *Tar
 
@@ -68,7 +68,7 @@ func (c *Client) debugf(format string, i ...interface{}) {
 		return
 	}
 
-	log.Printf("youtube-auto-downloader: "+format, i...)
+	log.Printf("megator-downloader: "+format, i...)
 }
 
 type ExecFunc func(cmd string, args ...string) ([]byte, error)
@@ -82,7 +82,7 @@ func New() *Client {
 		pipeFunc: shellPipe,
 	}
 
-	c.YoutubeDL = &YoutubeDL{
+	c.MegaCLI = &MegaCLI{
 		c: c,
 	}
 
