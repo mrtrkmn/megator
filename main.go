@@ -41,15 +41,11 @@ func main() {
 			log.Fatal(err)
 		}
 
-		if err := os.Mkdir(record[0], 777); err != nil {
+		if err := cli.MegaCLI.DownloadWithDirName("data", record[1]); err != nil {
 			panic(err)
 		}
 
-		if err := cli.MegaCLI.DownloadWithDirName(record[0], record[1]); err != nil {
-			panic(err)
-		}
-
-		if err := cli.Tar.CompressWithPIGZ(fmt.Sprintf("%s.tar.gz", record[0]), record[0]); err != nil {
+		if err := cli.Tar.CompressWithPIGZ(fmt.Sprintf("%s.tar.gz", record[0]), "data"); err != nil {
 			panic(err)
 		}
 		writer.Write([]string{record[0], record[1]})
