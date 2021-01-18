@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/mrturkmencom/youtubeto/client"
+	"github.com/mrtrkmn/megator/client"
 )
 
 const (
@@ -39,9 +39,6 @@ func main() {
 		}
 		if err != nil {
 			log.Fatal(err)
-		}
-		if err := os.Mkdir(record[0], 777); err != nil {
-			panic(err)
 		}
 
 		if err := cli.MegaCLI.DownloadWithDirName(record[0], record[1]); err != nil {
